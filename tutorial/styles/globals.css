@@ -14,3 +14,15 @@ a {
 * {
   box-sizing: border-box;
 }
+.leaflet-container {
+  height: 600px;
+  width: 100%;
+}
+.leaflet-marker-icon{
+  background: transparent;
+  border: none;
+}
+.leaflet-div-icon {
+  background: transparent;
+  border: none;
+}
