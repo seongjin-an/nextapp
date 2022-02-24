@@ -1,11 +1,12 @@
 import React, {useState} from "react";
 import {MapContainer, TileLayer, Marker, Popup} from 'react-leaflet'
-import L, {DivIcon, Point, PointExpression} from "leaflet";
+import L, {DivIcon, LatLngBoundsExpression, LatLngExpression, Point, PointExpression} from "leaflet";
 import styled from "styled-components";
 import {renderToString} from "react-dom/server";
 
 import "leaflet/dist/leaflet.css";
 import FaMapMarkerAlt from 'react-icons/fa'
+import LocationMarker from "./LocationMarker";
 
 const StyledIcon = styled.img``
 function getSearchIcon() {
@@ -43,6 +44,8 @@ const Map: React.FC = () => {
                         A pretty CSS3 popup. <br/> Easily customizable.
                     </Popup>
                 </Marker>
+                <LocationMarker/>
+
             </MapContainer>
         </div>
     )
