@@ -7,9 +7,10 @@ import {renderToString} from "react-dom/server";
 import "leaflet/dist/leaflet.css";
 import FaMapMarkerAlt from 'react-icons/fa'
 import LocationMarker from "./LocationMarker";
+import CctvMarker from "./CctvMarker";
 
 const StyledIcon = styled.img``
-function getSearchIcon() {
+export function getSearchIcon() {
     // 0 : A
     // const chr = String.fromCharCode(65 + i)
     const point: PointExpression = new Point(37.654324, 127.056374)
@@ -34,8 +35,8 @@ const Map: React.FC = () => {
     // const [map, setMap] = useState()
     const center = new L.LatLng(37.654324, 127.056374)
     return (
-        <div style={{width: '600px', height: '600px'}}>
-            <MapContainer center={center} zoom={6} crs={L.CRS.EPSG3857}>
+        <div style={{width: '100vw', height: '100vh'}}>
+            <MapContainer center={center} zoom={8} crs={L.CRS.EPSG3857}>
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
@@ -45,7 +46,7 @@ const Map: React.FC = () => {
                     </Popup>
                 </Marker>
                 <LocationMarker/>
-
+                <CctvMarker/>
             </MapContainer>
         </div>
     )
