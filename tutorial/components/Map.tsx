@@ -1,6 +1,13 @@
 import React, {useState} from "react";
 import {MapContainer, TileLayer, Marker, Popup} from 'react-leaflet'
-import L, {DivIcon, LatLngBoundsExpression, LatLngExpression, Point, PointExpression} from "leaflet";
+import L, {
+    DivIcon,
+    LatLngBoundsExpression,
+    LatLngExpression,
+    MarkerClusterGroup,
+    Point,
+    PointExpression
+} from "leaflet";
 import styled from "styled-components";
 import {renderToString} from "react-dom/server";
 
@@ -8,6 +15,7 @@ import "leaflet/dist/leaflet.css";
 import FaMapMarkerAlt from 'react-icons/fa'
 import LocationMarker from "./LocationMarker";
 import CctvMarker from "./CctvMarker";
+import CustomCctvMarker from "./CustomCctvMarker";
 
 const StyledIcon = styled.img``
 export function getSearchIcon() {
@@ -34,6 +42,7 @@ export function getSearchIcon() {
 const Map: React.FC = () => {
     // const [map, setMap] = useState()
     const center = new L.LatLng(37.654324, 127.056374)
+    const [cluster, setCluster] = useState<MarkerClusterGroup| null>(null)
     return (
         <div style={{width: '100vw', height: '100vh'}}>
             <MapContainer center={center} zoom={8} crs={L.CRS.EPSG3857}>
@@ -46,7 +55,8 @@ const Map: React.FC = () => {
                     </Popup>
                 </Marker>
                 <LocationMarker/>
-                <CctvMarker/>
+                {/*<CctvMarker/>*/}
+                <CustomCctvMarker cluster={cluster} setCluster={setCluster}/>
             </MapContainer>
         </div>
     )

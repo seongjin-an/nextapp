@@ -53,11 +53,11 @@ const getCctvMarker = () => {
 }
 
 const CctvMarker: React.FC = () => {
-    const cctvs: ICctv[] = Array(50).fill(null).map((_, index) => ({ ...createMockMarker(), id: index }))
+    const cctvs: ICctv[] = Array(2000).fill(null).map((_, index) => ({ ...createMockMarker(), id: index }))
     console.log('cctvs:', cctvs)
     return(
         <MarkerClusterGroup
-            maxClusterRadius={10}
+            maxClusterRadius={60}
             iconCreateFunction={getCctvClusterMarker}
         >
             {
