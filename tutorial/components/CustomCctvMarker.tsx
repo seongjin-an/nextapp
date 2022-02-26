@@ -1,10 +1,11 @@
-import React, {Dispatch, SetStateAction, useCallback, useEffect, useState} from "react";
+import React, {Dispatch, SetStateAction, useCallback, useContext, useEffect, useState} from "react";
 import "leaflet.markercluster";
 import L, {divIcon, point, MarkerCluster, MarkerClusterGroup, MarkerOptions} from 'leaflet'
 import {createMockMarker, ICctv} from "../util/mock";
 import styled from "styled-components";
 import {renderToString} from "react-dom/server";
 import {useMap} from "react-leaflet";
+import CctvClusterContext from "../contexts/CctvClusterContext";
 
 const cctvCluster = '/images/cctvCluster.png'
 const StyledCctvClusterIcon = styled.div`
@@ -58,8 +59,9 @@ interface IProps {
     setCluster: (cluster: MarkerClusterGroup) => void;
 }
 
-const CustomCctvMarker: React.FC<IProps> = ({cluster, setCluster}) => {
+const CustomCctvMarker: React.FC<IProps> = ({}) => {
     const map = useMap()
+    const {state: {cluster}, action: {setCluster}} = useContext(CctvClusterContext)
     // const [cluster, setCluster] = useState<MarkerClusterGroup>()
     const cctvs: ICctv[] = Array(2000).fill(null).map((_, index) => ({...createMockMarker(), id: index}))
     const getCctvMarkerClusterIconCallback = useCallback((cluster: MarkerCluster) =>
@@ -69,21 +71,24 @@ const CustomCctvMarker: React.FC<IProps> = ({cluster, setCluster}) => {
         const markerClusterGroup = new MarkerClusterGroup({
             iconCreateFunction: getCctvMarkerClusterIconCallback,
             maxClusterRadius: 60,
-            // zoomToBoundsOnClick: false,
+            zoomToBoundsOnClick: false,
             // clusterPane: 'cctv',
             // pane: 'cctv',
-            // animate: true,
-            // removeOutsideVisibleBounds: true,
-            // spiderfyOnMaxZoom: false,
+            animate: true,
+            removeOutsideVisibleBounds: true,
+            spiderfyOnMaxZoom: false,
         })
+        // setCluster(markerClusterGroup)
         setCluster(markerClusterGroup)
     }, [])
     useEffect(() => {
+        // if(cluster){
         if(cluster){
-            console.log('cluster:', cluster)
+            // console.log('cluster:', cluster)
             // if(cluster.options){
             //     cluster.options.iconCreateFunction = getCctvMarkerClusterIconCallback
             // }
+            // cluster.addTo(map)
             cluster.addTo(map)
             // setCluster(cluster)
         }
